@@ -1,7 +1,16 @@
+// Modifica el middleware para ser más permisivo durante el desarrollo
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
+  // Verificar si hay un parámetro de bypass para desarrollo
+  const url = new URL(request.url)
+  const bypass = url.searchParams.get("bypass")
+
+  if (bypass === "true") {
+    return NextResponse.next()
+  }
+
   const token = request.cookies.get("token")?.value
   const userCookie = request.cookies.get("user")?.value
   let user = null
@@ -38,15 +47,6 @@ export function middleware(request: NextRequest) {
     } else {
       return NextResponse.redirect(new URL("/dashboard/client", request.url))
     }
-  }
-
-  // Verificar roles para rutas específicas
-  if (user && isTechnicianRoute && user.role !== "technician") {
-    return NextResponse.redirect(new URL("/dashboard/client", request.url))
-  }
-
-  if (user && isClientRoute && user.role !== "client") {
-    return NextResponse.redirect(new URL("/dashboard/technician", request.url))
   }
 
   return NextResponse.next()
