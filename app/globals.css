@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    /* BeFixed primary color: #23C48E (157 68% 45%) */
+    --primary: 157 68% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light green secondary color */
+    --secondary: 157 30% 92%;
+    --secondary-foreground: 157 68% 35%;
+
+    /* Light gray for muted elements */
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 25% 40%;
+
+    /* Light green accent */
+    --accent: 157 30% 92%;
+    --accent-foreground: 157 68% 35%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 157 68% 45%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 215 25% 15%;
+    --foreground: 0 0% 95%;
+
+    --card: 215 25% 18%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 215 25% 18%;
+    --popover-foreground: 0 0% 95%;
+
+    /* BeFixed primary color in dark mode */
+    --primary: 157 68% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Darker green secondary color */
+    --secondary: 157 30% 20%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 215 25% 25%;
+    --muted-foreground: 215 20% 70%;
+
+    --accent: 157 30% 20%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 215 25% 25%;
+    --input: 215 25% 25%;
+    --ring: 157 68% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Custom styles for better visibility in light mode */
+.bg-primary-light {
+  @apply bg-primary/20 dark:bg-primary/30;
+}
+
+.bg-secondary-light {
+  @apply bg-secondary/20 dark:bg-secondary/30;
+}
+
+/* BeFixed gradient backgrounds */
+.bg-befixed-gradient {
+  @apply bg-gradient-to-r from-primary/10 via-secondary/20 to-primary/5;
+}
+
+.bg-befixed-gradient-strong {
+  @apply bg-gradient-to-r from-primary/20 via-secondary/30 to-primary/10;
+}
+
