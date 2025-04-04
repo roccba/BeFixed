@@ -60,8 +60,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser(mockUser)
 
       // Guardar en cookies (expira en 7 días)
-      Cookies.set("token", "mock-jwt-token", { expires: 7 })
-      Cookies.set("user", JSON.stringify(mockUser), { expires: 7 })
+      // Usar opciones más permisivas para las cookies
+      Cookies.set("token", "mock-jwt-token", {
+        expires: 7,
+        path: "/",
+        sameSite: "lax",
+      })
+
+      Cookies.set("user", JSON.stringify(mockUser), {
+        expires: 7,
+        path: "/",
+        sameSite: "lax",
+      })
 
       setLoading(false)
       return Promise.resolve()
