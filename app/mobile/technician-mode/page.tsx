@@ -398,4 +398,3 @@ function Star(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-

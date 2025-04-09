@@ -98,4 +98,3 @@
 .bg-befixed-gradient-strong {
   @apply bg-gradient-to-r from-primary/20 via-secondary/30 to-primary/10;
 }
-

@@ -154,4 +154,3 @@ export default function DashboardLayout({ children, userType }: DashboardLayoutP
     </div>
   )
 }
-

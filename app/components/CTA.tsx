@@ -66,4 +66,3 @@ export default function CTA() {
     </div>
   )
 }
-

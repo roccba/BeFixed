@@ -380,4 +380,3 @@ export default function TechnicianServicePage({ params }: { params: { id: string
     </div>
   )
 }
-

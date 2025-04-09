@@ -258,4 +258,3 @@ export default function TechnicianPage({ params }: { params: { id: string } }) {
     </div>
   )
 }
-

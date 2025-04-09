@@ -108,4 +108,3 @@ function getRandomResponse(responseArray) {
 module.exports = {
   generateResponse,
 }
-

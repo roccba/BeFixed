@@ -14,4 +14,3 @@ module.exports = [
   { id: "pintura", label: "Pintura", icon: "🎨", category: "hogar" },
   { id: "montaje", label: "Montaje de muebles", icon: "🪑", category: "hogar" },
 ]
-

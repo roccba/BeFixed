@@ -39,4 +39,3 @@ module.exports = {
     "No estoy seguro de cómo ayudarte con eso. ¿Puedes explicarme qué tipo de servicio necesitas?",
   ],
 }
-
