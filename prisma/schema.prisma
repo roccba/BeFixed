@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id       Int       @id @default(autoincrement())
+  email         String    @unique
+  password_hash String
+  name          String?
+  last_name     String?
+  phone_number  String?
+  is_client     Boolean   @default(true)
+  is_fixer      Boolean   @default(false)
+  created_at    DateTime  @default(now())
+
+  services        Service[]
+  bookingsClient  Booking[] @relation("ClientBookings")
+  bookingsFixer   Booking[] @relation("FixerBookings")
+  certifications  Certification[]
+  payments        Payment[] @relation("PayerPayments")
+  chatMessages    ChatMessage[]
+  notifications   Notification[]
+  availabilities Availability[]
+
+}
+
+model Service {
+  service_id   Int       @id @default(autoincrement())
+  user_id      Int
+  title        String
+  category     String
+  description  String?
+  base_price   Decimal
+  created_at   DateTime  @default(now())
+
+  user     User      @relation(fields: [user_id], references: [user_id])
+  bookings Booking[]
+}
+
+model Availability {
+  availability_id Int      @id @default(autoincrement())
+  user_id         Int
+  day_of_week     String
+  start_time      String
+  end_time        String
+  is_active       Boolean
+
+  user User @relation(fields: [user_id], references: [user_id])
+}
+
+model Booking {
+  booking_id       Int       @id @default(autoincrement())
+  client_id        Int
+  professional_id  Int
+  service_id       Int
+  status           String
+  scheduled_at     DateTime
+  price            Decimal
+  notes            String?
+  created_at       DateTime  @default(now())
+
+  client       User     @relation("ClientBookings", fields: [client_id], references: [user_id])
+  professional User     @relation("FixerBookings", fields: [professional_id], references: [user_id])
+  service      Service  @relation(fields: [service_id], references: [service_id])
+  reviews      Review[]
+  payments     Payment[]
+  chatMessages ChatMessage[]
+}
+
+model Review {
+  review_id   Int      @id @default(autoincrement())
+  booking_id  Int
+  rating      Int
+  comment     String?
+  created_at  DateTime @default(now())
+
+  booking Booking @relation(fields: [booking_id], references: [booking_id])
+}
+
+model Certification {
+  cert_id      Int      @id @default(autoincrement())
+  user_id      Int
+  title        String
+  institution  String
+  issued_date  DateTime
+  expires_date DateTime?
+  file_url     String?
+
+  user User @relation(fields: [user_id], references: [user_id])
+}
+
+model Category {
+  category_id Int    @id @default(autoincrement())
+  name        String
+  icon_url    String?
+  description String?
+}
+
+model Payment {
+  payment_id  Int      @id @default(autoincrement())
+  booking_id  Int
+  payer_id    Int
+  amount      Decimal
+  status      String
+  method      String
+  created_at  DateTime @default(now())
+
+  booking Booking @relation(fields: [booking_id], references: [booking_id])
+  payer   User    @relation("PayerPayments", fields: [payer_id], references: [user_id])
+}
+
+model ChatMessage {
+  message_id  Int      @id @default(autoincrement())
+  booking_id  Int
+  sender_id   Int
+  text        String
+  sent_at     DateTime @default(now())
+  read        Boolean  @default(false)
+
+  booking Booking @relation(fields: [booking_id], references: [booking_id])
+  sender  User    @relation(fields: [sender_id], references: [user_id])
+}
+
+model Notification {
+  notification_id Int      @id @default(autoincrement())
+  user_id         Int
+  title           String
+  message         String
+  is_read         Boolean  @default(false)
+  created_at      DateTime @default(now())
+
+  user User @relation(fields: [user_id], references: [user_id])
+}
